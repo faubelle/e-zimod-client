@@ -6,11 +6,22 @@
 		<script type="text/javascript" src="js/raphael-min.js"></script>
 		<script type="text/javascript" src="js/g.raphael-min.js"></script>
 		<script type="text/javascript" src="js/g.line-min.js"></script>
+		<script type="text/javascript" src="js/jquery.flot.js"></script>
+		<script type="text/javascript" src="js/jquery.flot.crosshair.js"></script>
+		<script type="text/javascript" src="js/jquery.flot.axislabels.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<style>
-		#chart {
-			width: 800px;
-			height: 600px;
+		#chart, #flot {
+			position: absolute;
+			top: 40px;
+			width: 600px;
+			height: 400px;
+		}
+		#flot {
+			left: 700px;
+		}
+		#flot .legend {
+			display: none;
 		}
 		</style>
 	</head>
@@ -18,5 +29,6 @@
 		<input type="text" value="3" id="n" />
 		<input type="button" value="Fetch new profiles!" id="fetchBtn" />
 		<div id="chart"></div>
+		<div id="flot"></div>
 	</body>
 </html>
