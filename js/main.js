@@ -1,12 +1,15 @@
 
 $(function() {
 
+	var r = Raphael("chart");
+
 	function showChart(elements) {
+
+		r.clear();
 
 		var xs = $.map(elements, function(x, i) { return [$.map(x, function(y, j) { return [y[1]]; })]; });
 		var ys = $.map(elements, function(x, i) { return [$.map(x, function(y, j) { return [y[0]]; })]; });
 
-		var r = Raphael("chart");
 		var chart = r.linechart(50, 50, 700, 500, ys, xs, {smooth: false, symbol: 'circle', width: 1, axis: '0 0 1 1', shade: true});
 		chart.hoverColumn(function () {
 	        this.tags = r.set();
@@ -32,5 +35,7 @@ $(function() {
 		});
 	}
 
-	getRandomProfiles(3);
+	$("#fetchBtn").click(function() {
+		getRandomProfiles(Math.min($("#n").val(), 30));
+	})
 });
