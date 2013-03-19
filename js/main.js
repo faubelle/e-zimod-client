@@ -2,7 +2,7 @@ $(function() {
 
     var r = Raphael("chart");
 
-    function showChart(elements) {
+    function showChart(elements, tmax) {
 
         // Flot
 
@@ -22,8 +22,7 @@ $(function() {
             },
             xaxis: {
                 min: 0,
-                max: 3600,
-                tickSize: 600,
+                max: tmax,
                 label: "Time (s)"
             },
             yaxis: {
@@ -132,18 +131,33 @@ $(function() {
         return chart;
     }
 
+    function getFridge(n, ps) {
+        $.ajax({
+            url: "http://localhost:8000/fridge?callback=?",
+            data: {upto: n, times: "[" + ps + "]"},
+            dataType: "jsonp",
+            success: function(ps) {
+                showChart([ps], n);
+            },
+        });
+    }
+
     function getRandomProfiles(n) {
         $.ajax({
             url: "http://localhost:8000/randomProfile?callback=?",
             data: {n: n},
             dataType: "jsonp",
             success: function(ps) {
-                showChart(ps);
+                showChart(ps, 3600);
             },
         });
     }
 
     $("#fetchBtn").click(function() {
-        getRandomProfiles(Math.min($("#n").val(), 30));
-    })
+        getRandomProfiles(Math.min($("#n").val(), 10));
+    });
+
+    $("#getFridge").click(function() {
+        getFridge($("#upto").val(), $("#times").val());
+    });
 });
