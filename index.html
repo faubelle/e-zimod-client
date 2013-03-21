@@ -3,22 +3,16 @@
 	<head>
 		<title>e-zimod-client</title>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="js/raphael-min.js"></script>
-		<script type="text/javascript" src="js/g.raphael-min.js"></script>
-		<script type="text/javascript" src="js/g.line-min.js"></script>
 		<script type="text/javascript" src="js/jquery.flot.js"></script>
 		<script type="text/javascript" src="js/jquery.flot.crosshair.js"></script>
 		<script type="text/javascript" src="js/jquery.flot.axislabels.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<style>
-		#chart, #flot {
+		#flot {
 			position: absolute;
 			top: 80px;
 			width: 600px;
 			height: 400px;
-		}
-		#flot {
-			left: 700px;
 		}
 		#flot .legend {
 			display: none;
@@ -31,7 +25,6 @@
 		<input type="text" value="30" id="upto">
 		<input type="text" id="times" value="17, 25">
 		<input type="button" value="Get me a fridge!" id="getFridge">
-		<div id="chart"></div>
 		<div id="flot"></div>
 	</body>
 </html>
