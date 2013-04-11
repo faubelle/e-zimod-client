@@ -3,22 +3,18 @@
 	<head>
 		<title>e-zimod-client</title>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="js/raphael-min.js"></script>
-		<script type="text/javascript" src="js/g.raphael-min.js"></script>
-		<script type="text/javascript" src="js/g.line-min.js"></script>
 		<script type="text/javascript" src="js/jquery.flot.js"></script>
 		<script type="text/javascript" src="js/jquery.flot.crosshair.js"></script>
 		<script type="text/javascript" src="js/jquery.flot.axislabels.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<style>
-		#chart, #flot {
+		#flot {
 			position: absolute;
 			top: 80px;
 			width: 600px;
 			height: 400px;
-		}
-		#flot {
-			left: 700px;
 		}
 		#flot .legend {
 			display: none;
@@ -26,12 +22,29 @@
 		</style>
 	</head>
 	<body>
-		<input type="text" value="3" id="n" />
-		<input type="button" value="Fetch new profiles!" id="fetchBtn" /><br />
-		<input type="text" value="30" id="upto">
-		<input type="text" id="times" value="17, 25">
-		<input type="button" value="Get me a fridge!" id="getFridge">
-		<div id="chart"></div>
-		<div id="flot"></div>
-	</body>
+    <div class="row">
+      <div class="span12">
+        <div class="navbar">
+          <div class="navbar-inner">
+          <a class="brand" href="#">E-zimod</a>
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Simulation</a></li>
+            <li><a href="#">Else...</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="form-inline">
+		  <input type="text" value="3" id="n" />
+		  <input class="btn" type="button" value="Fetch new profiles!" id="fetchBtn" /><br />
+    </form>
+    <form class="form-inline">
+  		<input type="text" value="30" id="upto">
+  		<input type="text" id="times" value="17, 25">
+  		<input class="btn" type="button" value="Get me a fridge!" id="getFridge">
+    </form>
+ 		<div id="flot"></div>
+ 	</body>
 </html>
