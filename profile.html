@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>e-zimod-client</title>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<!-- script type="text/javascript" src="js/main.js"></script -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	</head>
+	<body>
+    <div class="row">
+      <div class="span12">
+        <div class="navbar">
+          <div class="navbar-inner">
+          <a class="brand" href="#">E-zimod</a>
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="simulation.html">Simulation</a></li>
+            <li><a href="machine.html">Machine</a></li>
+            <li><a href="profile.html">Profile</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span11 offset1">
+        <h4>Add User Profile</h4>
+        <form class="form-inline">
+    		  <input type="text" placeholder="Name" id="pName" />
+        </form>
+
+          Input : for each machine : initial state + [(Second,State)]
+
+        <form>
+    	    <input class="btn btn-primary" type="button" value="Add UserProfile" id="addProf" /><br />
+        </form>
+
+        <h4>Remove User Profile</h4>
+        <form class="form-inline">
+          <select id="pList">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+    		  <input class="btn btn-primary" type="button" value="Remove UserProfile" id="remProf" /><br />
+        </form>
+      </div>
+    </div>
+    <script>
+      //TODO
+    </script>
+ 	</body>
+</html>
