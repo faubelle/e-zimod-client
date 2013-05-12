@@ -7,6 +7,7 @@
 		<!-- script type="text/javascript" src="js/main.js"></script -->
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
+		<script src="js/comm.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 	</head>
 	<body>
@@ -32,8 +33,29 @@
     		  <input type="text" placeholder="Name" id="pName" />
         </form>
 
-          Input : for each machine : initial state + [(Second,State)]
+        <h5> Add machine to Profile </h5>
+        <form class="form-inline">
+          <select id="mList">
+          </select>
+          <select id="stList">
+            <option>On</option>
+            <option>Off</option>
+            <option>StandBy</option>
+          </select>
+    		  <input type="text" placeholder="Time,State[,Time,State]*" id="userOp" />
+    	    <input class="btn btn-primary" type="button" value="Add this machine" id="addMachToProf" /><br />
 
+        <script> setMachineList("mList"); </script>
+
+        <h6> Current machines </h6>
+        <form class="form-inline">
+          <select id="curMList">
+            <option>mache 1</option>
+            <option>mache 2</option>
+            <option>mache 3</option>
+          </select>
+    	    <input class="btn btn-primary" type="button" value="Remove this machine" id="remCurMach" /><br />
+        </form>
         <form>
     	    <input class="btn btn-primary" type="button" value="Add UserProfile" id="addProf" /><br />
         </form>
