@@ -41,44 +41,30 @@
         </ul>
 
         <h5>Transitions</h5>
-        <form class="form-horizontal">
-          <div class="control-group">
-            <label class="control-label" for="inputT1">On-Off</label>
-            <div class="controls">
-              <input type="text" id="inputT1" placeholder="Time,Delay">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputT2">Off-On</label>
-            <div class="controls">
-              <input type="text" id="inputT2" placeholder="Time,Delay">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputT3">On-Standby</label>
-            <div class="controls">
-              <input type="text" id="inputT3" placeholder="Time,Delay">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputT4">Standby-On</label>
-            <div class="controls">
-              <input type="text" id="inputT4" placeholder="Time,Delay">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputT5">Standby-Off</label>
-            <div class="controls">
-              <input type="text" id="inputT5" placeholder="Time,Delay">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputT6">Off-Standby</label>
-            <div class="controls">
-              <input type="text" id="inputT6" placeholder="Time,Delay">
-            </div>
-          </div>
-        </form>
+        <div class="controls controls-row">
+          <label class="span1"></label>
+          <label class="span1">On</label>
+          <label class="span1">Off</label>
+          <label class="span1">Standby</label>
+        </div>
+        <div class="controls controls-row">
+          <label class="span1">On</label>
+          <input class="span1" type="text" disabled>
+          <input class="span1" type="text">
+          <input class="span1" type="text">
+        </div>
+        <div class="controls controls-row">
+          <label class="span1">Off</label>
+          <input class="span1" type="text">
+          <input class="span1" type="text" disabled>
+          <input class="span1" type="text">
+        </div>
+        <div class="controls controls-row">
+          <label class="span1">Standby</label>
+          <input class="span1" type="text">
+          <input class="span1" type="text">
+          <input class="span1" type="text" disabled>
+        </div>
         <button class="btn btn-primary">Save Machine</button><br /><br />
 
         <h4>Remove Machine</h4>
