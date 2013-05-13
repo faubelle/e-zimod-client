@@ -70,7 +70,7 @@
             var initState = $('#stList')[0].selectedOptions[0].value;
             var tranStr = $('#userOp')[0].value;
             var transition = parseTrans(tranStr);
-            sel.add($('<option>'+mName+'</option>')[0]);
+            sel.add(mkOption(mName));
             curr[curr.length] = [mName,initState,transition];
           }
           function parseTrans(str) {
@@ -90,8 +90,14 @@
           function addPr() {
             var pName = $('#pName')[0].value; 
             //TODO : use pName & curr
+            //addUserProfile(prof);
           }
           $('#addProf').click(addPr);
+          function remPr() {
+            //TODO
+            //removeUserProfile(prof);
+          }
+          $('#remProf').click(remPr);
         </script>
       </div>
     </div>

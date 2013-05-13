@@ -9,6 +9,16 @@ function getMachines() {
   return ["frigo","radiateur","pompe a chaleur","cuisine"]
 }
 
+function removeMachine(mach) {
+  //TODO
+  alert("todo");
+}
+
+function addMachine(mach) {
+  //TODO
+  alert("todo");
+}
+
 function getUserProfiles() {
   /*$.ajax({
       url: "http://localhost:8000/getTableProfile?callback=?",
@@ -22,6 +32,16 @@ function getUserProfiles() {
               radiateur:["on",[[200,"off"],[400,"on"]]]}]] 
 }
 
+function removeUserProfile(prof) {
+  //TODO
+  alert("todo");
+}
+
+function addUserProfile(prof) {
+  //TODO
+  alert("todo");
+}
+
 function getUserProfilesNames() {
   var res = getUserProfiles();
   return res.map(function(e){return e[0]})
@@ -31,8 +51,7 @@ function setMachineList(id) {
   var sel = $('#' + id)[0];
   var opts = getMachines();
   for(i = 0; i < opts.length ; i++) {
-    var opt = $('<option>'+opts[i]+'</option>')[0]; 
-    sel.add(opt,null);
+    sel.add(mkOption(opts[i]),null);
   }
 }
 
@@ -40,7 +59,10 @@ function setUserPList(id) {
   var sel = $('#' + id)[0];
   var opts = getUserProfilesNames();
   for(i = 0; i < opts.length ; i++) {
-    var opt = $('<option>'+opts[i]+'</option>')[0]; 
-    sel.add(opt,null);
+    sel.add(mkOption(opts[i]),null);
   }
+}
+
+function mkOption(value) {
+  return $('<option>'+value+'</option>')[0];
 }
