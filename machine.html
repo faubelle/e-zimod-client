@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>e-zimod-client</title>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<!-- script type="text/javascript" src="js/main.js"></script -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+		<script src="js/comm.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	</head>
+	<body>
+    <div class="row">
+      <div class="span12">
+        <div class="navbar">
+          <div class="navbar-inner">
+          <a class="brand" href="#">E-zimod</a>
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="simulation.html">Simulation</a></li>
+            <li><a href="machine.html">Machine</a></li>
+            <li><a href="profile.html">Profile</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span11 offset1">
+        <h4>Adding Machine</h4>
+        <form class="form-inline">
+       	  <input type="text" placeholder="Name" id="mName" />
+        </form>
+
+        <h5>Beahviors</h5>
+        <ul class="inline">
+          <li><div id="drawOn" style="width:200px;height:200px"></div></li>
+          <li><div id="drawOff" style="width:200px;height:200px"></div></li>
+          <li><div id="drawStand" style="width:200px;height:200px"></div></li>
+        </ul>
+
+        <h5>Transitions (Sec,Delay)</h5>
+        <div class="controls controls-row">
+          <label class="span1"></label>
+          <label class="span1">On</label>
+          <label class="span1">Off</label>
+          <label class="span1">Standby</label>
+        </div>
+        <div class="controls controls-row">
+          <label class="span1">On</label>
+          <input class="span1" type="text" disabled>
+          <input class="span1" type="text" id="t01">
+          <input class="span1" type="text" id="t02">
+        </div>
+        <div class="controls controls-row">
+          <label class="span1">Off</label>
+          <input class="span1" type="text" id="t10">
+          <input class="span1" type="text" disabled>
+          <input class="span1" type="text" id="t12">
+        </div>
+        <div class="controls controls-row">
+          <label class="span1">Standby</label>
+          <input class="span1" type="text" id="t20">
+          <input class="span1" type="text" id="t21">
+          <input class="span1" type="text" disabled>
+        </div>
+        <button class="btn btn-primary" id="saveMach">Save Machine</button><br /><br />
+
+        <h4>Remove Machine</h4>
+        <form class="form-inline">
+          <select id="mList"></select>
+    		  <input class="btn btn-primary" type="button" value="Remove Machine" id="remMach" /><br />
+        </form>
+        <script>
+          /*
+            get the transition table as : Sec,delay ~ \d+,\d+
+            returns the 6 elements list : [State1, State2, sec, delay]
+          */
+          function getTrans() {
+            var res = [];
+            var k = 0;
+            tNames = ["on","off","standby"];
+            for (var i = 0; i < tNames.length ; i++) { 
+              for (var j = 0; j < tNames.length ; j++) { 
+                if(i == j)
+                  continue;
+                else {
+                  var el = $('#t' + i + j)[0].value;
+                  var elInt = el.split(',').map(function(e){return parseInt(e)});
+                  res[k] = [tNames[i],tNames[j]].concat(elInt);
+                  k++;
+                }
+              }
+            }
+            return res;
+          }
+          // extract the list of point from a chart as [[x,y],...]
+          function chartToPoints(chart) {
+            return chart.series[0].data.map(function(e){return [e.x,e.y]});
+          }
+          // get back all the data and feed them to 'addMachine'
+          function addMach() {
+            var mName = $('#mName')[0].value;
+            var behavior = [["on",chartToPoints(chartOn)],
+                            ["off",chartToPoints(chartOff)],
+                            ["standby",chartToPoints(chartStand)]];
+            var trans = getTrans();
+            var mach = {name:mName,
+                        behavior:behavior,
+                        transitions:trans
+                       }
+            addMachine(mach);
+            return mach;
+          }
+          $('#saveMach').click(addMach);
+          setMachineList("mList");
+          function remMach() {
+            var sel = $('#mList')[0];
+            sel.remove(sel.selectedIndex);
+            removeMachine(sel.selectedOptions[0].value);
+          }
+          $('#remMach').click(remMach);
+        </script>
+      </div>
+    </div>
+    <script>
+        var chartOn;
+        $(document).ready(function() {
+            chartOn = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'drawOn',
+                    type: 'scatter',
+                    margin: [30, 30, 30, 30],
+                    events: {
+                        click: function(e) {
+                            // find the clicked values and the series
+                            var x = e.xAxis[0].value,
+                                y = e.yAxis[0].value,
+                                series = this.series[0];
+                            console.log("x: " + x + ", y:" + y);
+                            x = Math.ceil(x / 5) * 5;
+                            y = Math.ceil(y / 5) * 5;
+                            console.log("x: " + x + ", y:" + y);
+                            // Add it
+                            series.addPoint([x, y]);
+                            // sort it
+                            series.data.sort(function(a,b){return a.x > b.x});
+                        }
+                    }
+                },
+                title: {
+                    text: 'On profile' 
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    min: 0,
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    maxZoom: 60
+                },
+                yAxis: {
+                    title: {
+                        text: 'Value'
+                    },
+                    min : 0,
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    maxZoom: 60,
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        lineWidth: 1,
+                        point: {
+                            events: {
+                                'click': function() {
+                                    if (this.series.data.length > 1) this.remove();
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    data: [[0, 0]]
+                }]
+            });
+        });
+        var chartOff;
+        $(document).ready(function() {
+            chartOff = new Highcharts.Chart({
+                chart: {
+                  renderTo: 'drawOff',
+                    type: 'scatter',
+                    margin: [30, 30, 30, 30],
+                    events: {
+                        click: function(e) {
+                            // find the clicked values and the series
+                            var x = e.xAxis[0].value,
+                                y = e.yAxis[0].value,
+                                series = this.series[0];
+                            console.log("x: " + x + ", y:" + y);
+                            x = Math.ceil(x / 5) * 5;
+                            y = Math.ceil(y / 5) * 5;
+                            console.log("x: " + x + ", y:" + y);
+                            // Add it
+                            series.addPoint([x, y]);
+                            // sort it
+                            series.data.sort(function(a,b){return a.x > b.x});
+                        }
+                    }
+                },
+                title: {
+                    text: 'Off profile' 
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    min: 0,
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    maxZoom: 60
+                },
+                yAxis: {
+                    title: {
+                        text: 'Value'
+                    },
+                    min : 0,
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    maxZoom: 60,
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        lineWidth: 1,
+                        point: {
+                            events: {
+                                'click': function() {
+                                    if (this.series.data.length > 1) this.remove();
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    data: [[0, 0]]
+                }]
+            });
+        });
+        var chartStand;
+        $(document).ready(function() {
+            chartStand = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'drawStand',
+                    type: 'scatter',
+                    margin: [30, 30, 30, 30],
+                    events: {
+                        click: function(e) {
+                            // find the clicked values and the series
+                            var x = e.xAxis[0].value,
+                                y = e.yAxis[0].value,
+                                series = this.series[0];
+                            console.log("x: " + x + ", y:" + y);
+                            x = Math.ceil(x / 5) * 5;
+                            y = Math.ceil(y / 5) * 5;
+                            console.log("x: " + x + ", y:" + y);
+                            // Add it
+                            series.addPoint([x, y]);
+                            // sort it
+                            series.data.sort(function(a,b){return a.x > b.x});
+                        }
+                    }
+                },
+                title: {
+                    text: 'Standby profile' 
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    min: 0,
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    maxZoom: 60
+                },
+                yAxis: {
+                    title: {
+                        text: 'Value'
+                    },
+                    min : 0,
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    maxZoom: 60,
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        lineWidth: 1,
+                        point: {
+                            events: {
+                                'click': function() {
+                                    if (this.series.data.length > 1) this.remove();
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    data: [[0, 0]]
+                }]
+            });
+        });
+    </script>
+ 	</body>
+</html>

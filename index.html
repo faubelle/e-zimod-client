@@ -12,7 +12,7 @@
 		<style>
 		#flot {
 			position: absolute;
-			top: 80px;
+			top: 180px;
 			width: 600px;
 			height: 400px;
 		}
@@ -29,22 +29,39 @@
           <a class="brand" href="#">E-zimod</a>
           <ul class="nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Simulation</a></li>
-            <li><a href="#">Else...</a></li>
+            <li><a href="simulation.html">Simulation</a></li>
+            <li><a href="machine.html">Machine</a></li>
+            <li><a href="profile.html">Profile</a></li>
           </ul>
           </div>
         </div>
       </div>
     </div>
-    <form class="form-inline">
-		  <input type="text" value="3" id="n" />
-		  <input class="btn" type="button" value="Fetch new profiles!" id="fetchBtn" /><br />
-    </form>
-    <form class="form-inline">
-  		<input type="text" value="30" id="upto">
-  		<input type="text" id="times" value="17, 25">
-  		<input class="btn" type="button" value="Get me a fridge!" id="getFridge">
-    </form>
- 		<div id="flot"></div>
+    <div class="row">
+      <div class="span11 offset1">
+        <form class="form-inline">
+    		  <input type="text" value="3" id="n" />
+    		  <input class="btn" type="button" value="Fetch new profiles!" id="fetchBtn" /><br />
+        </form>
+        <form class="form-inline">
+      		<input type="text" value="30" id="upto">
+      		<input type="text" id="times" value="17, 25">
+      		<input class="btn" type="button" value="Get me a fridge!" id="getFridge">
+        </form>
+     		<div id="flot"></div>
+        <script>
+        function getTable(table){
+            $.ajax({
+                url: "http://localhost:8000/getTable"+table+"?callback=?",
+                data: {table: table},
+                dataType: "jsonp",
+                success: function(db) {
+                  alert(JSON.stringify(db));    
+                },
+            });
+        }
+        </script>
+      </div>
+    </div>
  	</body>
 </html>
