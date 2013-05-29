@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>e-zimod-client</title>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<!-- script type="text/javascript" src="js/main.js"></script -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+		<script src="js/comm.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	</head>
+	<body>
+    <div class="row">
+      <div class="span12">
+        <div class="navbar">
+          <div class="navbar-inner">
+          <a class="brand" href="#">E-zimod</a>
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="simulation.html">Simulation</a></li>
+            <li><a href="machine.html">Machine</a></li>
+            <li><a href="profile.html">Profile</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span11 offset1">
+        <h4>Add User Profile</h4>
+        <form class="form-inline">
+    		  <input type="text" placeholder="Name" id="pName" />
+        </form>
+
+        <h5> Add machine to Profile </h5>
+        <form class="form-inline">
+          <select id="mList">
+          </select>
+          <select id="stList">
+            <option>On</option>
+            <option>Off</option>
+            <option>StandBy</option>
+          </select>
+    		  <input type="text" placeholder="Time,State[,Time,State]*" id="userOp" />
+    	    <input class="btn btn-primary" type="button" value="Add this machine" id="addMachToProf" /><br />
+
+        <script> setMachineList("mList"); </script>
+
+        <h6> Current machines </h6>
+        <form class="form-inline">
+          <select id="curMList" size="5"></select>
+    	    <input class="btn btn-primary" type="button" value="Remove this machine" id="remCurMach" /><br />
+        </form>
+        <form>
+    	    <input class="btn btn-primary" type="button" value="Add UserProfile" id="addProf" /><br />
+        </form>
+
+        <h4>Remove User Profile</h4>
+        <form class="form-inline">
+          <select id="pList"></select>
+    		  <input class="btn btn-primary" type="button" value="Remove UserProfile" id="remProf" /><br />
+        </form>
+        <script>
+          setUserPList("pList");
+          var curr = [];
+          var sel = $('#curMList')[0];
+          function addMP() {
+            var mName = $('#mList')[0].selectedOptions[0].value;
+            var initState = $('#stList')[0].selectedOptions[0].value;
+            var tranStr = $('#userOp')[0].value;
+            var transition = parseTrans(tranStr);
+            sel.add(mkOption(mName));
+            curr[curr.length] = [mName,initState,transition];
+          }
+          function parseTrans(str) {
+            var tupLis = str.match(/\d+,\w+/g);
+            return tupLis.map(function(e){ 
+              var tup = e.split(',')
+              tup[0] = parseInt(tup[0]);
+              tup[1] = tup[1].toLowerCase();
+              return tup;
+            });
+          }
+          $('#addMachToProf').click(addMP);
+          function remCM() {
+            sel.remove(sel.selectedIndex);
+          }
+          $('#remCurMach').click(remCM);
+          function addPr() {
+            var pName = $('#pName')[0].value; 
+            //TODO : use pName & curr
+            //addUserProfile(prof);
+          }
+          $('#addProf').click(addPr);
+          function remPr() {
+            //TODO
+            //removeUserProfile(prof);
+          }
+          $('#remProf').click(remPr);
+        </script>
+      </div>
+    </div>
+ 	</body>
+</html>
