@@ -12,7 +12,7 @@ function getMachines() {
 function removeMachine(id) {
   $.ajax({
       url: "http://localhost:8000/deleteMachine?callback=?",
-      data: {'id' : id},
+      data: JSON.Stringify({'id' : parseInt(id)}),
       dataType: "jsonp",
       success: function(ps) {
         alert(ps)
@@ -24,7 +24,7 @@ function removeMachine(id) {
 function addMachine(mach) {
   $.ajax({
       url: "http://localhost:8000/addMachine?callback=?",
-      data : {'machine' : mach},
+      data: JSON.Stringify({'machine' : mach}),
       dataType: "jsonp",
       success: function(ps) {
         alert(ps)
@@ -49,7 +49,7 @@ function getUserProfiles() {
 function removeUserProfile(id) {
   $.ajax({
       url: "http://localhost:8000/deleteUserProfile?callback=?",
-      data : {'id' : id},
+      data: JSON.Stringify({'id' : parseInt(id)}),
       dataType: "jsonp",
       success: function(ps) {
         alert(ps)
@@ -61,7 +61,7 @@ function removeUserProfile(id) {
 function addUserProfile(prof) {
   $.ajax({
       url: "http://localhost:8000/addUserProfile?callback=?",
-      data : {'profile' : prof},
+      data: JSON.Stringify({'profile' : prof}),
       dataType: "jsonp",
       success: function(ps) {
         alert(ps)
