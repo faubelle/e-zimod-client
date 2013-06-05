@@ -118,7 +118,8 @@
           function remMach() {
             var sel = $('#mList')[0];
             sel.remove(sel.selectedIndex);
-            removeMachine(sel.selectedOptions[0].value);
+            id = sel.selectedOptions[0].value.match(/\d+/)[0];
+            removeMachine(id);
           }
           $('#remMach').click(remMach);
         </script>

@@ -63,7 +63,7 @@
         </form>
         <script>
           setUserPList("pList");
-          var curr = [];
+          var curr = {};
           var sel = $('#curMList')[0];
           function addMP() {
             var mName = $('#mList')[0].selectedOptions[0].value;
@@ -71,7 +71,7 @@
             var tranStr = $('#userOp')[0].value;
             var transition = parseTrans(tranStr);
             sel.add(mkOption(mName));
-            curr[curr.length] = [mName,initState,transition];
+            curr[mName] = [initState,transition];
           }
           function parseTrans(str) {
             var tupLis = str.match(/\d+,\w+/g);
@@ -89,13 +89,13 @@
           $('#remCurMach').click(remCM);
           function addPr() {
             var pName = $('#pName')[0].value; 
-            //TODO : use pName & curr
-            //addUserProfile(prof);
+            prof = {'name' : pName, 'data' : curr }
+            addUserProfile(prof);
           }
           $('#addProf').click(addPr);
           function remPr() {
-            //TODO
-            //removeUserProfile(prof);
+            id = $('#pList')[0].selectedOptions[0].value.match(/\d+/)[0];
+            removeUserProfile(id);
           }
           $('#remProf').click(remPr);
         </script>

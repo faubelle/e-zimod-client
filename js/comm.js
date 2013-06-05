@@ -6,17 +6,31 @@ function getMachines() {
         alert(ps);
       },
   });*/
-  return ["frigo","radiateur","pompe a chaleur","cuisine"]
+  return ["0-frigo","1-radiateur","2-pompe a chaleur","3-cuisine"]
 }
 
-function removeMachine(mach) {
-  //TODO
-  alert("todo");
+function removeMachine(id) {
+  $.ajax({
+      url: "http://localhost:8000/deleteMachine?callback=?",
+      data: {'id' : id},
+      dataType: "jsonp",
+      success: function(ps) {
+        alert(ps)
+      },
+  });
+  alert("remove machine");
 }
 
 function addMachine(mach) {
-  //TODO
-  alert("todo");
+  $.ajax({
+      url: "http://localhost:8000/addMachine?callback=?",
+      data : {'machine' : mach},
+      dataType: "jsonp",
+      success: function(ps) {
+        alert(ps)
+      },
+  });
+  alert("added machine");
 }
 
 function getUserProfiles() {
@@ -32,19 +46,33 @@ function getUserProfiles() {
               radiateur:["on",[[200,"off"],[400,"on"]]]}]] 
 }
 
-function removeUserProfile(prof) {
-  //TODO
-  alert("todo");
+function removeUserProfile(id) {
+  $.ajax({
+      url: "http://localhost:8000/deleteUserProfile?callback=?",
+      data : {'id' : id},
+      dataType: "jsonp",
+      success: function(ps) {
+        alert(ps)
+      },
+  });
+  alert("removed profile");
 }
 
 function addUserProfile(prof) {
-  //TODO
-  alert("todo");
+  $.ajax({
+      url: "http://localhost:8000/addUserProfile?callback=?",
+      data : {'profile' : prof},
+      dataType: "jsonp",
+      success: function(ps) {
+        alert(ps)
+      },
+  });
+  alert("added profile");
 }
 
 function getUserProfilesNames() {
   var res = getUserProfiles();
-  return res.map(function(e){return e[0]})
+  return res.map(function(e){return e[0] + '  ' + Object.keys(e[1])})
 }
 
 function setMachineList(id) {
