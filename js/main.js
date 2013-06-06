@@ -23,8 +23,8 @@
                 autoHighlight: false
             },
             xaxis: {
-                min: 0,
-                max: 7,
+                min: 1,
+                max: 8,
                 label: "Time (1 day)"
             },
             yaxes: [{
@@ -105,7 +105,8 @@
         
         if (item) {
             /*alert("You clicked point " + item.dataIndex + " in " + item.series.label + ".");*/
-            getDetailsDay(item.dataindex);
+            //getDetailsDay(item.dataindex);
+            getday(getId(),item.dataindex*86400,showChartDay);
             plot.highlight(item.series, item.datapoint);
         }
     });
@@ -141,8 +142,8 @@ elementsDay = day;
                 autoHighlight: false
             },
             xaxis: {
-                min: 0,
-                max: 96,
+                min: 1,
+                max: 97,
                 label: "Time (15 min)"
             },
             yaxes: [{
@@ -224,7 +225,8 @@ elementsDay = day;
         
         if (item) {
             /*alert("You clicked point " + item.dataIndex + " in " + item.series.label + ".");*/
-            getDetailsMinutes(item.dataindex);
+            //getDetailsMinutes(item.dataindex);
+            getquarter(getId(),item.dataindex*900,showChart)
             plot.highlight(item.series, item.datapoint);
         }
     });
