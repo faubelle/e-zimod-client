@@ -1,6 +1,3 @@
-$(function() {
-
-
  function showChartWeek(week) {
 
         // Flot
@@ -234,7 +231,7 @@ elementsDay = day;
 
     }
 
-    function getFridge(n, ps) {
+    /*function getFridge(n, ps) {
         $.ajax({
             url: "http://localhost:8000/fridge?callback=?",
             data: {upto: n, times: "[" + ps + "]"},
@@ -276,9 +273,9 @@ elementsDay = day;
                 showChart([ps],3600);
             },
         });
-    }
+    }*/
 
-function showChart(elements, tmax) {
+function showChart(elements) {
 //tmax=5;
         // Flot
 /*elements = [[
@@ -305,7 +302,7 @@ function showChart(elements, tmax) {
             },
             xaxis: {
                 min: 0,
-                max: tmax,
+                max: 100,
                 label: "Time (s)"
             },
             yaxis: {
@@ -399,4 +396,3 @@ function updateLegend() {
     $("#getFridge").click(function() {
         getFridge($("#upto").val(), $("#times").val());
     });
-});

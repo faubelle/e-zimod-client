@@ -3,10 +3,36 @@
 	<head>
 		<title>e-zimod-client</title>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.flot.js"></script>
+		<script type="text/javascript" src="js/jquery.flot.crosshair.js"></script>
+		<script type="text/javascript" src="js/jquery.flot.axislabels.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script src="js/comm.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<style>
+		#flot0 {
+			position: absolute;
+			top: 200px;
+			width: 1200px;
+			height: 400px;
+		}
+		#flot {
+			position: absolute;
+			top: 650px;
+			width: 1200px;
+			height: 400px;
+		}
+		#flot2 {
+			position: absolute;
+			top: 1100px;
+			width: 1200px;
+			height: 400px;
+		}
+		#flot .legend {
+			display: none;
+		}
+		</style>
 	</head>
 	<body>
     <div class="row">
@@ -30,15 +56,23 @@
           <select id="pList"></select>
     		  <input class="btn btn-primary" type="button" value="Start Simulation" id="simulate" /><br />
         </form>
+     		<div id="flot0"></div>
+        <div id="flot"></div>
+        <div id="flot2"></div>
       </div>
     </div>
     <script>
       setUserPList("pList");
-      function simule() {
+      function getId() {
         var prof = $('#pList')[0].selectedOptions[0].value
-        var profId = prof.match(/^\d+/)[0]
+        return prof.match(/^\d+/)[0]
+      }
+      function simule() {
         //TODO
-        alert('todo')
+        var profId = getId();
+        getquarter(profId,0,showChart);
+        getday(profId,0,showChartDay);
+        getweek(profId,0,showChartWeek);
       }
       $('#simulate').click(simule);
     </script>
