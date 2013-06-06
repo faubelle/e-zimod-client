@@ -70,16 +70,31 @@ function addUserProfile(prof) {
   alert("added profile");
 }
 
-function getSimulation(id,untilTime) {
+function getquarter(id,from,callback) {
   $.ajax({
-      url: "http://localhost:8000/xxxxxx?callback=?",
-      data: JSON.stringify({'id' : id, 'untilTime' : untilTime}),
+      url: "http://localhost:8000/quarter?callback=?",
+      data: JSON.stringify({'id' : id, 'from' : from}),
       dataType: "jsonp",
-      success: function(ps) {
-        alert(ps)
-      },
+      success: callback 
   });
-  alert("simulation requested");
+}
+
+function getday(id,from,callback) {
+  $.ajax({
+      url: "http://localhost:8000/day?callback=?",
+      data: JSON.stringify({'id' : id, 'from' : from}),
+      dataType: "jsonp",
+      success: callback 
+  });
+}
+
+function getweek(id,from,callback) {
+  $.ajax({
+      url: "http://localhost:8000/week?callback=?",
+      data: JSON.stringify({'id' : id, 'from' : from}),
+      dataType: "jsonp",
+      success: callback 
+  });
 }
 
 function getUserProfilesNames() {
