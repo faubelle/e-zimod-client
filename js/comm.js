@@ -74,6 +74,7 @@ function getquarter(id,from,callback) {
   $.ajax({
       url: "http://localhost:8000/quarter?callback=?",
       data: 'id=' + id  + '&from=' + from,
+      dataType:'jsonp',
       success: callback 
   });
 }

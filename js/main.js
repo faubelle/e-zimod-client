@@ -106,7 +106,7 @@
         if (item) {
             /*alert("You clicked point " + item.dataIndex + " in " + item.series.label + ".");*/
             //getDetailsDay(item.dataindex);
-            getday(getId(),item.dataindex*86400,showChartDay);
+            getday(getId(),item.dataIndex*86400,showChartDay);
             plot.highlight(item.series, item.datapoint);
         }
     });
@@ -226,7 +226,7 @@ elementsDay = day;
         if (item) {
             /*alert("You clicked point " + item.dataIndex + " in " + item.series.label + ".");*/
             //getDetailsMinutes(item.dataindex);
-            getquarter(getId(),item.dataindex*900,showChart)
+            getquarter(getId()+1,item.dataIndex*900,showChart)
             plot.highlight(item.series, item.datapoint);
         }
     });
@@ -292,7 +292,10 @@ function showChart(elements) {
             return { data: e, label: " " }
         });
 
-        var plot = $.plot("#flot2", es, {
+        var plot = $.plot("#flot2", 
+[{data:elements[0],bars:{show: true, barWidth:1 }}]
+
+            , {
             hoverable: true,
             shadowSize: 0,
             crosshair: {
