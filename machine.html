@@ -34,6 +34,15 @@
         </form>
 
         <h5>Beahviors</h5>
+        <label class="checkbox inline">
+          <input type="checkbox" id="cycleon"> On Cylic
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" id="cycleoff"> Off Cylic
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" id="cyclestandby"> Stanby Cyclic
+        </label>
         <ul class="inline">
           <li><div id="drawOn" style="width:200px;height:200px"></div></li>
           <li><div id="drawOff" style="width:200px;height:200px"></div></li>
@@ -102,9 +111,13 @@
           // get back all the data and feed them to 'addMachine'
           function addMach() {
             var mName = $('#mName')[0].value;
-            var behavior = [["on",chartToPoints(chartOn)],
+            var behavior = [["on", {'cyclic' : $('#cycleon')[0].checked, 'data' : chartToPoints(chartOn)}],
+                            ["off", {'cyclic' : $('#cycleoff')[0].checked, 'data' : chartToPoints(chartOff)}],
+                            ["standby", {'cyclic' : $('#cyclestandby')[0].checked, 'data' : chartToPoints(chartStand)}]];
+            /*var behavior = [["on",chartToPoints(chartOn)],
                             ["off",chartToPoints(chartOff)],
                             ["standby",chartToPoints(chartStand)]];
+            */
             var trans = getTrans();
             var mach = {name:mName,
                         behavior:behavior,
@@ -118,7 +131,7 @@
           function remMach() {
             var sel = $('#mList')[0];
             sel.remove(sel.selectedIndex);
-            id = sel.selectedOptions[0].value.match(/\d+/)[0];
+            id = sel.selectedOptions[0].value.match(/^\d+/)[0];
             removeMachine(id);
           }
           $('#remMach').click(remMach);

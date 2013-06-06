@@ -71,10 +71,11 @@
             var tranStr = $('#userOp')[0].value;
             var transition = parseTrans(tranStr);
             sel.add(mkOption(mName));
-            curr[mName] = [initState,transition];
+            var mId = mName.match(/^\d+/)[0];
+            curr[mId] = [initState,transition];
           }
           function parseTrans(str) {
-            var tupLis = str.match(/\d+,\w+/g);
+            var tupLis = str.match(/^\d+,\w+/g);
             return tupLis.map(function(e){ 
               var tup = e.split(',')
               tup[0] = parseInt(tup[0]);
@@ -94,7 +95,7 @@
           }
           $('#addProf').click(addPr);
           function remPr() {
-            id = $('#pList')[0].selectedOptions[0].value.match(/\d+/)[0];
+            id = $('#pList')[0].selectedOptions[0].value.match(/^\d+/)[0];
             removeUserProfile(id);
           }
           $('#remProf').click(remPr);

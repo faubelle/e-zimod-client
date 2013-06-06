@@ -4,7 +4,7 @@
 		<title>e-zimod-client</title>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<!-- script type="text/javascript" src="js/main.js"></script -->
+		<script type="text/javascript" src="js/main.js"></script>
 		<script src="js/comm.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 	</head>
@@ -28,33 +28,17 @@
       <div class="span11 offset1">
         <form class="form-inline">
           <select id="pList"></select>
-    		  <input class="btn btn-primary" type="button" value="Add this profile" id="addProfSim" /><br />
+    		  <input class="btn btn-primary" type="button" value="Start Simulation" id="simulate" /><br />
         </form>
-
-        <h6> Current Profiles </h6>
-        <form class="form-inline">
-          <select id="curPList" size="5"></select>
-    	    <input class="btn btn-primary" type="button" value="Remove this profile" id="remCurProf" /><br />
-        </form>
-
-    		<input class="btn btn-primary" type="button" value="Start Simulation" id="simulate" /><br />
       </div>
     </div>
     <script>
       setUserPList("pList");
-      var sel = $('#curPList')[0];
-      function addCP() {
-        var pName = $('#pList')[0].selectedOptions[0].value;
-        sel.add(mkOption(pName));
-      }
-      $('#addProfSim').click(addCP)
-      function remCP() {
-        sel.remove(sel.selectedIndex);
-      }
-      $('#remCurProf').click(remCP);
       function simule() {
-        var profs = sel.options;
+        var prof = $('#pList')[0].selectedOptions[0].value
+        var profId = prof.match(/^\d+/)[0]
         //TODO
+        alert('todo')
       }
       $('#simulate').click(simule);
     </script>

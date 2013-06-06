@@ -12,7 +12,7 @@ function getMachines() {
 function removeMachine(id) {
   $.ajax({
       url: "http://localhost:8000/deleteMachine?callback=?",
-      data: JSON.Stringify({'id' : parseInt(id)}),
+      data: JSON.stringify({'id' : parseInt(id)}),
       dataType: "jsonp",
       success: function(ps) {
         alert(ps)
@@ -24,7 +24,7 @@ function removeMachine(id) {
 function addMachine(mach) {
   $.ajax({
       url: "http://localhost:8000/addMachine?callback=?",
-      data: JSON.Stringify({'machine' : mach}),
+      data: JSON.stringify({'machine' : mach}),
       dataType: "jsonp",
       success: function(ps) {
         alert(ps)
@@ -49,7 +49,7 @@ function getUserProfiles() {
 function removeUserProfile(id) {
   $.ajax({
       url: "http://localhost:8000/deleteUserProfile?callback=?",
-      data: JSON.Stringify({'id' : parseInt(id)}),
+      data: JSON.stringify({'id' : parseInt(id)}),
       dataType: "jsonp",
       success: function(ps) {
         alert(ps)
@@ -61,13 +61,25 @@ function removeUserProfile(id) {
 function addUserProfile(prof) {
   $.ajax({
       url: "http://localhost:8000/addUserProfile?callback=?",
-      data: JSON.Stringify({'profile' : prof}),
+      data: JSON.stringify({'profile' : prof}),
       dataType: "jsonp",
       success: function(ps) {
         alert(ps)
       },
   });
   alert("added profile");
+}
+
+function getSimulation(id,untilTime) {
+  $.ajax({
+      url: "http://localhost:8000/xxxxxx?callback=?",
+      data: JSON.stringify({'id' : id, 'untilTime' : untilTime}),
+      dataType: "jsonp",
+      success: function(ps) {
+        alert(ps)
+      },
+  });
+  alert("simulation requested");
 }
 
 function getUserProfilesNames() {
