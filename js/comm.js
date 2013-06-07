@@ -1,21 +1,10 @@
-function getMachines() {
- /* $.ajax({
-      url: "http://localhost:8000/getTableMachine?callback=?",
-      dataType: "jsonp",
-      success: function(ps) {
-        alert(ps);
-      },
-  });*/
-  return ["0-frigo","1-radiateur","2-pompe a chaleur","3-cuisine"]
-}
-
 function removeMachine(id) {
   $.ajax({
       url: "http://localhost:8000/deleteMachine?callback=?",
-      data: JSON.stringify({'id' : parseInt(id)}),
+      data: {'id' : parseInt(id)},
       dataType: "jsonp",
       success: function(ps) {
-        alert(ps)
+        //something
       },
   });
   alert("remove machine");
@@ -24,35 +13,22 @@ function removeMachine(id) {
 function addMachine(mach) {
   $.ajax({
       url: "http://localhost:8000/addMachine?callback=?",
-      data: JSON.stringify({'machine' : mach}),
+      data: {'machine' : JSON.stringify(mach)},
       dataType: "jsonp",
       success: function(ps) {
-        alert(ps)
+        //something
       },
   });
   alert("added machine");
 }
 
-function getUserProfiles() {
-  /*$.ajax({
-      url: "http://localhost:8000/getTableProfile?callback=?",
-      dataType: "jsonp",
-      success: function(ps) {
-        alert(ps)
-      },
-  });*/
-  return [[0,{frigo:["off",[[10,"on"],[50,"off"],[220,"on"]]]}],
-          [1,{frigo:["off",[[10,"on"],[50,"off"],[220,"on"]]],
-              radiateur:["on",[[200,"off"],[400,"on"]]]}]] 
-}
-
 function removeUserProfile(id) {
   $.ajax({
       url: "http://localhost:8000/deleteUserProfile?callback=?",
-      data: JSON.stringify({'id' : parseInt(id)}),
+      data: {'id' : parseInt(id)},
       dataType: "jsonp",
       success: function(ps) {
-        alert(ps)
+        //ad libe
       },
   });
   alert("removed profile");
@@ -61,10 +37,10 @@ function removeUserProfile(id) {
 function addUserProfile(prof) {
   $.ajax({
       url: "http://localhost:8000/addUserProfile?callback=?",
-      data: JSON.stringify({'profile' : prof}),
+      data: {'profile' : JSON.stringify(prof)},
       dataType: "jsonp",
       success: function(ps) {
-        alert(ps)
+        //ad libe
       },
   });
   alert("added profile");
@@ -97,25 +73,30 @@ function getweek(id,from,callback) {
   });
 }
 
-function getUserProfilesNames() {
-  var res = getUserProfiles();
-  return res.map(function(e){return e[0] + '  ' + Object.keys(e[1])})
-}
-
 function setMachineList(id) {
   var sel = $('#' + id)[0];
-  var opts = getMachines();
-  for(i = 0; i < opts.length ; i++) {
-    sel.add(mkOption(opts[i]),null);
-  }
+  $.ajax({
+      url: "http://localhost:8000/getTableMachine?callback=?",
+      dataType: "jsonp",
+      success: function(macLis) {
+        for(i = 0; i < macLis.length ; i++) {
+          sel.add(mkOption(macLis[i][0]+'-'+macLis[i][1].name),null);
+        }
+      },
+  });
 }
 
 function setUserPList(id) {
   var sel = $('#' + id)[0];
-  var opts = getUserProfilesNames();
-  for(i = 0; i < opts.length ; i++) {
-    sel.add(mkOption(opts[i]),null);
-  }
+  $.ajax({
+      url: "http://localhost:8000/getTableProfile?callback=?",
+      dataType: "jsonp",
+      success: function(profLis) {
+        for(i = 0; i < profLis.length ; i++) {
+          sel.add(mkOption(profLis[i][0]+'-'+profLis[i][1].name),null);
+        }
+      },
+  });
 }
 
 function mkOption(value) {

@@ -11,7 +11,7 @@
             grid: {
                 clickable:true,
                 hoverable: true,
-                autoHighlight: false
+                autoHighlight: true 
             },
             xaxis: {
                 min: 0,
@@ -97,7 +97,7 @@
         if (item) {
             //getDetailsDay(item.dataindex);
             getday(getId(),60*60*24*item.dataIndex,showChartDay);
-            plot.highlight(item.series, item.datapoint);
+            //plot.highlight(item.series, item.datapoint);
         }
     });
 
@@ -121,7 +121,7 @@
             grid: {
                 clickable:true,
                 hoverable: true,
-                autoHighlight: false
+                autoHighlight: true 
             },
             xaxis: {
                 min: 0,
@@ -206,8 +206,8 @@
         $("#flot").bind("plotclick", function (event, pos, item) {
         
           if (item) {
-             getquarter(getId(),60*15*item.dataindex,showChart);
-             plot.highlight(item.series, item.datapoint);
+             getquarter(getId(),60*15*item.dataIndex,showChart);
+             //plot.highlight(item.series, item.datapoint);
           }
         });
 
@@ -223,9 +223,9 @@
       }
 
     function showChart(elements) {
-        arg2 = 3600
+        arg2 = 900
 
-        var es = $.map(elements[0], function(e, i) {
+        var es = $.map(elements, function(e, i) {
             return { data: e, label: " " }
         });
 
@@ -237,7 +237,7 @@
             },
             grid: {
                 hoverable: true,
-                autoHighlight: false
+                autoHighlight: true 
             },
             xaxis: {
                 min: 0,
