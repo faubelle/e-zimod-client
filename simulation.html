@@ -54,7 +54,6 @@
       <div class="span11 offset1">
         <form class="form-inline">
           <select id="pList"></select>
-    		  <input class="btn btn-primary" type="button" value="Start Simulation" id="simulate" /><br />
         </form>
      		<div id="flot0"></div>
         <div id="flot"></div>
@@ -63,7 +62,7 @@
     </div>
     <script>
       setUserPList("pList");
-      $('#simulate').click(simule);
+      $('#pList').on('change', function() {simule();});
     </script>
  	</body>
 </html>

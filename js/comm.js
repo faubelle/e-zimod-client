@@ -95,6 +95,7 @@ function setUserPList(id) {
         for(i = 0; i < profLis.length ; i++) {
           sel.add(mkOption(profLis[i][0]+'-'+profLis[i][1].name),null);
         }
+        $('#'+id).prop('selectedIndex', -1)
       },
   });
 }

@@ -19,8 +19,8 @@
                 label: "Time (1 day)"
             },
             yaxes: [{
-                label: "Power (W)"
-            } ,{label:"Power (W)",position:'right'}]
+                label: "Energy (J)"
+            } ,{label:"Energy (J)",position:'right'}]
         });
 
         var legends = $("#flot0 .legendLabel");
@@ -92,14 +92,12 @@
             }
         });
 
-    $("#flot0").bind("plotclick", function (event, pos, item) {
-        
-        if (item) {
-            //getDetailsDay(item.dataindex);
-            getday(getId(),60*60*24*item.dataIndex,showChartDay);
-            //plot.highlight(item.series, item.datapoint);
-        }
-    });
+        $("#flot0").bind("plotclick", function (event, pos, item) {
+            if (item) {
+                getday(getId(),60*60*24*item.dataIndex,showChartDay);
+                $.plot("#flot2",[]);
+            }
+        });
 
     }
 
@@ -129,7 +127,7 @@
                 label: "Time (15 min)"
             },
             yaxes: [{
-                label: "Power (W)"
+                label: "Energy (J)"
             } ,{label:"Power (W)",position:'right'}],
             series:{ bars:{show: true, barWidth:1 }}, 
         });
@@ -204,10 +202,8 @@
         });
 
         $("#flot").bind("plotclick", function (event, pos, item) {
-        
           if (item) {
              getquarter(getId(),60*15*item.dataIndex,showChart);
-             //plot.highlight(item.series, item.datapoint);
           }
         });
 
@@ -219,6 +215,9 @@
       }
 
       function simule() {
+        $.plot('#flot0',[]);
+        $.plot('#flot',[]);
+        $.plot('#flot2',[]);
         getweek(getId(),0,showChartWeek);
       }
 
