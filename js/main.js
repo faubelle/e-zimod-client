@@ -1,16 +1,7 @@
  function showChartWeek(week) {
-
-        // Flot
-
-
-
-
         var es = $.map(week, function(e, i) {
             return { data: e, label: " " }
         });
-
-
-
         var plot = $.plot("#flot0", [{data:week[0],bars:{show: true, barWidth:1 }},{data:week[1],color:'#111',points:{show:true},bars:{show: true, barWidth:0.0001 },yaxis:2}], {
             hoverable: true,
             shadowSize: 0,
@@ -20,11 +11,11 @@
             grid: {
                 clickable:true,
                 hoverable: true,
-                autoHighlight: false
+                autoHighlight: true 
             },
             xaxis: {
-                min: 1,
-                max: 8,
+                min: 0,
+                max: 7,
                 label: "Time (1 day)"
             },
             yaxes: [{
@@ -101,13 +92,12 @@
             }
         });
 
- $("#flot0").bind("plotclick", function (event, pos, item) {
+    $("#flot0").bind("plotclick", function (event, pos, item) {
         
         if (item) {
-            /*alert("You clicked point " + item.dataIndex + " in " + item.series.label + ".");*/
             //getDetailsDay(item.dataindex);
-            getday(getId(),item.dataIndex*86400,showChartDay);
-            plot.highlight(item.series, item.datapoint);
+            getday(getId(),60*60*24*item.dataIndex,showChartDay);
+            //plot.highlight(item.series, item.datapoint);
         }
     });
 
@@ -116,19 +106,11 @@
 
     function showChartDay(day) {
 
-        // Flot
-
-elementsDay = day;
-
-
-
+        elementsDay = day;
 
         var es = $.map(elementsDay, function(e, i) {
             return { data: e, label: " " }
         });
-
-
-
 
         var plot = $.plot("#flot", [{data:day[0],bars:{show: true, barWidth:1 }},{data:day[1],color:'#111',points:{show:true},bars:{show: true, barWidth:0.0001 },yaxis:2}], {
             hoverable: true,
@@ -139,11 +121,11 @@ elementsDay = day;
             grid: {
                 clickable:true,
                 hoverable: true,
-                autoHighlight: false
+                autoHighlight: true 
             },
             xaxis: {
-                min: 1,
-                max: 97,
+                min: 0,
+                max: 96,
                 label: "Time (15 min)"
             },
             yaxes: [{
@@ -221,81 +203,33 @@ elementsDay = day;
             }
         });
 
- $("#flot").bind("plotclick", function (event, pos, item) {
+        $("#flot").bind("plotclick", function (event, pos, item) {
         
-        if (item) {
-            /*alert("You clicked point " + item.dataIndex + " in " + item.series.label + ".");*/
-            //getDetailsMinutes(item.dataindex);
-            getquarter(getId()+1,item.dataIndex*900,showChart)
-            plot.highlight(item.series, item.datapoint);
-        }
-    });
-
-    }
-
-    /*function getFridge(n, ps) {
-        $.ajax({
-            url: "http://localhost:8000/fridge?callback=?",
-            data: {upto: n, times: "[" + ps + "]"},
-            dataType: "jsonp",
-            success: function(ps) {
-                showChart([ps], n);
-            },
+          if (item) {
+             getquarter(getId(),60*15*item.dataIndex,showChart);
+             //plot.highlight(item.series, item.datapoint);
+          }
         });
-    }
 
-    function getRandomProfiles(n) {
-        $.ajax({
-            url: "http://localhost:8000/week?callback=?",
-            data: {n: n},
-            dataType: "jsonp",
-            success: function(ps) {
-                showChartWeek(ps);
-            },
-        });
-    }
+      }
 
-    function getDetailsDay(n) {
-        $.ajax({
-            url: "http://localhost:8000/day?callback=?",
-            data: {n: 3},
-            dataType: "jsonp",
-            success: function(ps) {
-                showChartDay(ps);
-            },
-        });
-    }
+      function getId() {
+        var prof = $('#pList')[0].selectedOptions[0].value
+        return prof.match(/^\d+/)[0]
+      }
 
-    function getDetailsMinutes(ps) {
-        $.ajax({
-            url: "http://localhost:8000/randomProfile?callback=?",
-            data: {n: 3},
-            dataType: "jsonp",
-            success: function(ps) {
-                showChart([ps],3600);
-            },
-        });
-    }*/
+      function simule() {
+        getweek(getId(),0,showChartWeek);
+      }
 
-function showChart(elements) {
-//tmax=5;
-        // Flot
-/*elements = [[
-        [0.0, 14.0],
-        [1, 33.0],
-        [2, 26.0],
-        [3, 36.0],
-        [4, 28.0]
-    ]];*/
+    function showChart(elements) {
+        arg2 = 900
 
-        var es = $.map(elements[0], function(e, i) {
+        var es = $.map(elements, function(e, i) {
             return { data: e, label: " " }
         });
 
-        var plot = $.plot("#flot2", 
-[{data:elements[0],bars:{show: true, barWidth:1 }}]
-
-            , {
+        var plot = $.plot("#flot2", es, {
             hoverable: true,
             shadowSize: 0,
             crosshair: {
@@ -303,11 +237,11 @@ function showChart(elements) {
             },
             grid: {
                 hoverable: true,
-                autoHighlight: false
+                autoHighlight: true 
             },
             xaxis: {
                 min: 0,
-                max: 100,
+                max: arg2,
                 label: "Time (s)"
             },
             yaxis: {
@@ -336,7 +270,7 @@ function showChart(elements) {
             $("#flot2 .legend").show();
         });
 
-function updateLegend() {
+        function updateLegend() {
 
             updateLegendTimeout = null;
 
@@ -387,12 +321,6 @@ function updateLegend() {
             }
         });
     }
-
-
-
-
-
-
 
     $("#fetchBtn").click(function() {
         getRandomProfiles(Math.min($("#n").val(), 10));
