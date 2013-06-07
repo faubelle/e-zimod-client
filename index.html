@@ -3,36 +3,9 @@
 	<head>
 		<title>e-zimod-client</title>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="js/jquery.flot.js"></script>
-		<script type="text/javascript" src="js/jquery.flot.crosshair.js"></script>
-		<script type="text/javascript" src="js/jquery.flot.axislabels.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<style>
-
-		#flot0 {
-			position: absolute;
-			top: 200px;
-			width: 1200px;
-			height: 400px;
-		}
-		#flot {
-			position: absolute;
-			top: 650px;
-			width: 1200px;
-			height: 400px;
-		}
-		#flot2 {
-			position: absolute;
-			top: 1100px;
-			width: 1200px;
-			height: 400px;
-		}
-		#flot .legend {
-			display: none;
-		}
-		</style>
 	</head>
 	<body>
     <div class="row">
@@ -52,30 +25,7 @@
     </div>
     <div class="row">
       <div class="span11 offset1">
-        <form class="form-inline">
-    		  <input type="text" value="3" id="n" />
-    		  <input class="btn" type="button" value="Fetch new profiles!" id="fetchBtn" /><br />
-        </form>
-        <form class="form-inline">
-      		<input type="text" value="30" id="upto">
-      		<input type="text" id="times" value="17, 25">
-      		<input class="btn" type="button" value="Get me a fridge!" id="getFridge">
-        </form>
-     		<div id="flot0"></div>
-        <div id="flot"></div>
-        <div id="flot2"></div>
-        <script>
-        function getTable(table){
-            $.ajax({
-                url: "http://localhost:8000/getTable"+table+"?callback=?",
-                data: {table: table},
-                dataType: "jsonp",
-                success: function(db) {
-                  alert(JSON.stringify(db));    
-                },
-            });
-        }
-        </script>
+        <h3>WELCOME to E-ZIMOD SIMULATOR3000 &copy;</h3>
       </div>
     </div>
  	</body>
