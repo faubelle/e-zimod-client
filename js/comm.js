@@ -73,7 +73,7 @@ function addUserProfile(prof) {
 function getquarter(id,from,callback) {
   $.ajax({
       url: "http://localhost:8000/quarter?callback=?",
-      data: JSON.stringify({'id' : id, 'from' : from}),
+      data: {'id' : id, 'from' : from},
       dataType: "jsonp",
       success: callback 
   });
@@ -82,7 +82,7 @@ function getquarter(id,from,callback) {
 function getday(id,from,callback) {
   $.ajax({
       url: "http://localhost:8000/day?callback=?",
-      data: JSON.stringify({'id' : id, 'from' : from}),
+      data: {'id' : id, 'from' : from},
       dataType: "jsonp",
       success: callback 
   });
@@ -91,7 +91,7 @@ function getday(id,from,callback) {
 function getweek(id,from,callback) {
   $.ajax({
       url: "http://localhost:8000/week?callback=?",
-      data: JSON.stringify({'id' : id, 'from' : from}),
+      data: {'id' : id, 'from' : from},
       dataType: "jsonp",
       success: callback 
   });
